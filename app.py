@@ -67,7 +67,7 @@ ECUACION_LOGISTICA = "\[ { dP \over dt} = P(a - bP) \]"
 ECUACION_LOGISTICA_RESOLUCION = "\[ P(t) = { aC_2 \over bC_2 + e^{-at}} \]"
 
 # Link Repositorio
-LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Crecimiento-Poblacional'
+LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Ecuacion-Diferencial-Poblacion'
 
 # Logo universidad del Valle de Guatemala
 file_uvg_logo = 'uvg-logo.jpg' # replace with your own image
