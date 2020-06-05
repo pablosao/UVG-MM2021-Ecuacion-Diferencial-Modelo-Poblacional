@@ -121,35 +121,7 @@ app.layout = html.Div(children=[
             dbc.Col((
                 dbc.Tabs([
 
-                    # Informacion
-                    dbc.Tab((
-
-                            dbc.CardBody(
-                                dbc.CardBody([
-                                    html.H2(children='Ecuación Logística'),
-
-                                    html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
-
-                                    html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
-
-                                    html.P(
-                                    """
-                                    Primero se determinó la ecuación diferencial de primer orden, mediante el 
-                                    método de separación de variables, siendo posible encontrar su solución de 
-                                    igual forma por el método Bernoulli’s y transformación a una ecuación exacta
-                                    """, style={'textAlign': 'justify'}),
-
-                                    html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
-
-                                    html.Div(id='formula_generada_mostrar')
-
-                                ]),
-                                className='mt-3'
-                            )
-
-                        ),label="Información",disabled=False),
-
-                    # Grafica
+# Grafica
                     dbc.Tab((
                         dbc.CardBody(
                             dbc.CardBody([
@@ -184,6 +156,36 @@ app.layout = html.Div(children=[
                             className='mt-3'
                         )
                     ),label="Gráficas Población Mundial",disabled=False),
+                    
+                    # Informacion
+                    dbc.Tab((
+
+                            dbc.CardBody(
+                                dbc.CardBody([
+                                    html.H2(children='Ecuación Logística'),
+
+                                    html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
+
+                                    html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
+
+                                    html.P(
+                                    """
+                                    Primero se determinó la ecuación diferencial de primer orden, mediante el 
+                                    método de separación de variables, siendo posible encontrar su solución de 
+                                    igual forma por el método Bernoulli’s y transformación a una ecuación exacta
+                                    """, style={'textAlign': 'justify'}),
+
+                                    html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
+
+                                    html.Div(id='formula_generada_mostrar')
+
+                                ]),
+                                className='mt-3'
+                            )
+
+                        ),label="Información",disabled=False),
+
+
 
 
                 ]),
@@ -221,7 +223,7 @@ def muestraGrafica(select_value):
                         # Same x and first y
                         xaxis_title='Año',
                         yaxis_title='Personas (en millones)',
-                        height=500
+                        height=450
                         )
 
     trace1 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto'], name='Población Valores Defecto')
