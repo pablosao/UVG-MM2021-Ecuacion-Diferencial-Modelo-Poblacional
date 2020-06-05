@@ -248,7 +248,7 @@ def muestraGrafica(select_value):
     datos_info = """
     Los valores iniciales para la resolución de la ecuación diferencial fueron: 
     
-    |Tiempo (t) | Población en Millones [ P(t) ] |
+    |Tiempo (t) | Población en Millones  P(t) |
     | --- | --- |
     | 0 | {0} |
     | 10 | {1} |
@@ -276,7 +276,7 @@ def muestraGrafica(select_value):
     return Formula,\
                 (
                     html.Div((
-                        html.P(dcc.Markdown(datos_info),style={'textAlign': 'justify'}),
+                        dcc.Markdown(datos_info),
                         html.Br(),
                         html.P(children=[Formula], style={'textAlign': 'center'}),
                     ))
