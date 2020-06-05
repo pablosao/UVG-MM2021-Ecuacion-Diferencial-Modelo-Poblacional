@@ -1,3 +1,10 @@
+"""
+Aplicación de Dash para graficar los datos del crecimiento poblacional y la
+rersolución de la ecuación diferencial logistica
+:author: Pablo Sao
+:date: 04 de junio de 2020
+"""
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -6,13 +13,6 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import math
 import base64
-
-"""
-Aplicación de Dash para graficar los datos del crecimiento poblacional y la
-rersolución de la ecuación diferencial logistica
-:author: Pablo Sao
-:date: 04 de junio de 2020
-"""
 
 def getConstanteA(valor_inicial,observacion_1,observacion_2):
     constante_a = (1/10) * math.log( ( ( (valor_inicial**2) * observacion_2) - observacion_2  ) / ( ( (valor_inicial**2) * observacion_1) - observacion_1  ) )
@@ -26,13 +26,6 @@ def getConstanteC2(valor_inicial,constante_a,constante_b):
     constante_c2 = valor_inicial / (constante_a - (valor_inicial*constante_b))
     return constante_c2
 
-def calculo_ecuacion(cantidad_datos):
-    valores = []
-    for generar in range(cantidad_datos):
-        p = int(round( (0.005552309*331323.9645)/( (0.000000346*331323.9645) + math.exp(-0.005552309*generar)) ))
-        valores.append(p)
-
-    return valores
 
 def getcalculo_ecuacion(cantidad_datos,constante_a,constante_b,constante_c2):
     valores = []
@@ -42,30 +35,6 @@ def getcalculo_ecuacion(cantidad_datos,constante_a,constante_b,constante_c2):
 
     return valores
 
-
-def generaGrafica():
-
-    # Obteniendo los datos
-
-    DATA = pd.read_excel('data.xlsx', sheet_name='Datos')
-
-    cLayout = go.Layout(title='Población Mundial',
-                        # Same x and first y
-                        xaxis_title='Fecha',
-                        yaxis_title='Personas (en millones)',
-                        height=500
-                        )
-    P = calculo_ecuacion(len(DATA.index))
-
-    trace1 = go.Scatter(x=DATA['Año'], y=DATA['Datos por Defecto'], name='Población Valores Defecto')
-    trace2 = go.Scatter(x=DATA['Año'], y=DATA['Datos por Defecto sin NRR'], name='Población Valores Defecto (sin NRR)')
-
-    trace4 = go.Scatter(x=DATA['Año'], y=P, name='Población Ecuación Diferencial')
-
-    return dcc.Graph(id='graph', figure={
-                'data': [trace1,trace2,trace4],
-                'layout': cLayout
-            })
 
 
 
@@ -83,21 +52,16 @@ ECUACION_LOGISTICA_RESOLUCION = "\[ P(t) = { aC_2 \over bC_2 + e^{-at}} \]"
 # Link Repositorio
 LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Crecimiento-Poblacional'
 
+# Logo universidad del Valle de Guatemala
+file_uvg_logo = 'uvg-logo.jpg' # replace with your own image
+UVG_LOGO = base64.b64encode(open(file_uvg_logo, 'rb').read())
+
 # leyendo datos de Excel
 DATOS = pd.read_excel('data.xlsx', sheet_name='Datos')
 
 # Obteniendo nombre de las columnas
 OPCIONES = list(DATOS.columns)
 OPCIONES.remove('Año')
-
-
-#valor_inicial = DATOS.iloc[0]['Datos por Defecto']
-#valor_1 = DATOS.iloc[10]['Datos por Defecto']
-#valor_2 = DATOS.iloc[20]['Datos por Defecto']
-
-#con_a = getConstanteA(valor_inicial,valor_1,valor_2)
-#con_b = getConstanteB(valor_inicial,valor_1,con_a)
-#print(getConstanteC2(valor_inicial,con_a,con_b))
 
 # Creando aplicacion de Dash
 app = dash.Dash(__name__,
@@ -106,30 +70,40 @@ app = dash.Dash(__name__,
 )
 
 
-
 server = app.server
+
 #Colocando titulo a la pestania
 app.title = 'Población Mundial'
-
 
 #Layout de la pagina
 app.layout = html.Div(children=[
 
     dbc.Row(
+        [
+            dbc.Col(
+                html.Img(src='data:image/png;base64,{}'.format(UVG_LOGO.decode()),style={'width': '125px'}),
+                width={"size": 2, "order": 1, "offset": 1},
+            ),
             dbc.Col(
                 (
+                    html.Br(),
                     html.H1(children='Población Mundial'),
                     html.H4(children='Pablo Sao & Shirley Marroquín'),
+                ),
+                width={"size": 3, "order": 2},
+            ),
+            dbc.Col(
+                (
+                    html.Br(),
                     html.Br(),
                     html.A('Código en Github', href=LINK_GITHUB),
-                    html.Br(),
-
                 ),
-                width={"size": 6, "offset": 1},
-            )
+                width={"size": 3, "order": 3},
+            ),
+        ]
     ),
 
-
+    html.Br(),
 
     dbc.Row(
         [
@@ -166,7 +140,6 @@ app.layout = html.Div(children=[
                                     ),
                                 ],),
 
-                                html.Br(),
                                 html.Div(id='grafica_pronostico'),
                             ]),
                             className='mt-3'
@@ -216,7 +189,7 @@ def muestraGrafica(select_value):
     con_c2 = getConstanteC2(valor_inicial,con_a,con_b)
 
     Formula = '\[ P(t) = { ' + str(con_a*con_c2) + ' \over ' + str(con_b*con_c2) + '+ e^{ -' + str(con_a) + 't }} \]'
-    
+
     Ecuacion = getcalculo_ecuacion(len(DATOS.index), con_a, con_b, con_c2)
 
     cLayout = go.Layout(title='Población Mundial',
