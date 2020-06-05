@@ -47,6 +47,22 @@ tipos de bacterias, protozoarios, pulgas de agua y moscas de frutas en ambientes
 Siendo la ecuación:
 """
 
+METODOLOGIA = \
+"""
+Para el curso de Ecuaciones Diferenciales de la Universidad del Valle de Guatemala, se 
+utilizo el [Simulador de Población Mundial de Roehr (s.f.)](http://fightoverpopulation.org/), 
+para la obtención de los datos experimentales. Recolectando el valor de población (en millones) 
+desde el año 1900 hasta el año 2019. Y así resolver la Ecuación Lógistica.
+"""
+
+REFERENCIAS = \
+""" 
+Roehr, C. (s.f.). *World Population Simulator*. Extraído de: [http://fightoverpopulation.org/](http://fightoverpopulation.org/)
+
+Zill, D. (2018). *Ecuaciones Diferenciales con aplicaciones de modelado*. Toluca, Ciudad de México: CENGAGE. 23 – 24 pp.
+"""
+
+# Ecuaciones de información
 ECUACION_LOGISTICA = "\[ { dP \over dt} = P(a - bP) \]"
 ECUACION_LOGISTICA_RESOLUCION = "\[ P(t) = { aC_2 \over bC_2 + e^{-at}} \]"
 
@@ -121,14 +137,50 @@ app.layout = html.Div(children=[
             dbc.Col((
                 dbc.Tabs([
 
-# Grafica
+                    # Informacion
+                    dbc.Tab((
+
+                            dbc.CardBody(
+                                dbc.CardBody([
+                                    html.P(dcc.Markdown(METODOLOGIA),style={'textAlign': 'justify'}),
+
+
+                                    html.H3(children='Ecuación Logística'),
+
+                                    html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
+
+                                    html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
+
+                                    html.P(
+                                    """
+                                    Primero se determinó la ecuación diferencial de primer orden, mediante el 
+                                    método de separación de variables, siendo posible encontrar su solución de 
+                                    igual forma por el método Bernoulli’s y transformación a una ecuación exacta.
+                                    """, style={'textAlign': 'justify'}),
+
+                                    html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
+
+                                    html.Div(id='formula_generada_mostrar'),
+
+                                    html.Br(),
+                                    html.H3(children='Referencias en este sitio'),
+
+                                    dcc.Markdown(REFERENCIAS),
+
+                                ]),
+                                className='mt-3'
+                            )
+
+                        ),label="Información",disabled=False),
+
+                    # Grafica
                     dbc.Tab((
                         dbc.CardBody(
                             dbc.CardBody([
 
                                 dbc.Row([
                                     dbc.Col(
-                                        html.Div(children='''Datos Disponibles:'''),
+                                        html.Div(children='''Datos para Construir Ecuación:'''),
                                     ),
                                     dbc.Col(
                                         html.Div(children='''Ecuación:'''),
@@ -156,34 +208,8 @@ app.layout = html.Div(children=[
                             className='mt-3'
                         )
                     ),label="Gráficas Población Mundial",disabled=False),
-                    
-                    # Informacion
-                    dbc.Tab((
 
-                            dbc.CardBody(
-                                dbc.CardBody([
-                                    html.H2(children='Ecuación Logística'),
 
-                                    html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
-
-                                    html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
-
-                                    html.P(
-                                    """
-                                    Primero se determinó la ecuación diferencial de primer orden, mediante el 
-                                    método de separación de variables, siendo posible encontrar su solución de 
-                                    igual forma por el método Bernoulli’s y transformación a una ecuación exacta
-                                    """, style={'textAlign': 'justify'}),
-
-                                    html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
-
-                                    html.Div(id='formula_generada_mostrar')
-
-                                ]),
-                                className='mt-3'
-                            )
-
-                        ),label="Información",disabled=False),
 
 
 
