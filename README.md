@@ -8,7 +8,7 @@ Para el curso de Ecuaciones Diferenciales de la Universidad del Valle de Guatema
 </p>
 
 Los datos utilizados para encontrar las constantes fueron: 
- * t = 0  P(0) = 1650.
+ * t = 0,  P(0)  = 1650.
  * t = 10, P(10) = 1734. 
  * t = 20, P(20) = 1833
 
