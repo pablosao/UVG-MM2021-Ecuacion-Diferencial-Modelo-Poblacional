@@ -204,6 +204,7 @@ app.layout = html.Div(children=[
                                 ],),
 
                                 html.Div(id='grafica_pronostico'),
+
                             ]),
                             className='mt-3'
                         )
