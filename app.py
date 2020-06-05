@@ -62,6 +62,14 @@ ECUACION_CUSTOMIZADA = ''
 # leyendo datos de Excel
 DATOS = pd.read_excel('data.xlsx', sheet_name='Datos')
 
+# Find the columns where each value is null
+empty_cols = [col for col in DATOS.columns if DATOS[col].isnull().all()]
+# Drop these columns from the dataframe
+DATOS.drop(empty_cols,
+        axis=1,
+        inplace=True)
+
+
 # Obteniendo nombre de las columnas
 OPCIONES = list(DATOS.columns)
 OPCIONES.remove('Año')
