@@ -14,6 +14,27 @@ Los datos utilizados para encontrar las constantes fueron:
 
 Donde se determino la siguiente ecuacion:
 
+<p align="center">
+  <img src="img/ecuacion_resuleta.png"></img>
+</p>
+
+# Funcionamiento Aplicación
+<p align ="justify">
+La fuente de datos de la aplicación es un Archivo de Excel llamado **data.xlsx**. La unica columna del archivo de Excel que no puede cambiar de nombre o eliminarse es la de "Año". Si eliminamos una de las columnas, o si agregamos una o varias columnas, el programa automáticamente tomara los datos para graficarlos y poner la información a disposición del análista para construir la ecuación diferencial del modelado de población.
+</p>
+
+<p align="center">
+  **Imagen 1:** Estructura del archivo de Excel. 
+
+  <img src="img/archivo_excel.png"></img>
+</p>
+
+<p align="center">
+  **Imagen 1:** Aplicación para construcción de la formula, a partir del set de datos seleccionado "*Datos para Construir Ecuación*". 
+
+  <img src="img/vista_aplicacion.png"></img>
+</p>
+
 
 
 # Autores
