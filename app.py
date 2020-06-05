@@ -205,7 +205,7 @@ app.layout = html.Div(children=[
                                 dbc.Row(
                                     dbc.Col(
                                         html.Div(id='grafica_pronostico'),
-                                        width={"size": 10, "order": 1}
+                                        width={"size": 12, "order": 1}
                                     )
                                 ),
 
@@ -255,7 +255,7 @@ def muestraGrafica(select_value):
                         # Same x and first y
                         xaxis_title='Año',
                         yaxis_title='Personas (en millones)',
-                        height=450
+                        width = 1020, height=450
                         )
 
     TRACE = [go.Scatter(x=DATOS['Año'], y=Ecuacion, name='Calculado con Ecuación Diferencial')]
