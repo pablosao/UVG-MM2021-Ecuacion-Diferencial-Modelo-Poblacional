@@ -244,12 +244,17 @@ def muestraGrafica(select_value):
     con_c2 = getConstanteC2(valor_inicial,con_a,con_b)
 
     Formula = '\[ P(t) = { ' + str(con_a*con_c2) + ' \over ' + str(con_b*con_c2) + '+ e^{ -' + str(con_a) + 't }} \]'
-
-    datos_info = "Los datos utilizados para encontrar las constantes fueron: t = 0, P(0) = {0}." \
-                 " t = 10, P(10) = {1}. t = 20, P(20) = {2}. Determinando la ecuación".format(
-        valor_inicial,valor_1,valor_2
-    )
-
+    
+    datos_info = """
+    Los valores iniciales para la resolución de la ecuación diferencial fueron: 
+    
+    |Tiempo (t) | Población en Millones [ P(t) ] |
+    | --- | --- |
+    | 0 | {0} |
+    | 10 | {1} |
+    | 20 | {2} |
+    """.format(valor_inicial,valor_1,valor_2)
+    
     Ecuacion = getcalculo_ecuacion(len(DATOS.index), con_a, con_b, con_c2)
 
     cLayout = go.Layout(title='Población Mundial',
@@ -271,7 +276,7 @@ def muestraGrafica(select_value):
     return Formula,\
                 (
                     html.Div((
-                        html.P(datos_info, style={'textAlign': 'justify'}),
+                        html.P(dcc.Markdown(datos_info),style={'textAlign': 'justify'}),
                         html.Br(),
                         html.P(children=[Formula], style={'textAlign': 'center'}),
                     ))
