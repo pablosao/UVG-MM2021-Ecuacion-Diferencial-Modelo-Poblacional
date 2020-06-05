@@ -17,7 +17,7 @@ rersolución de la ecuación diferencial logistica
 def calculo_ecuacion(cantidad_datos):
     valores = []
     for generar in range(cantidad_datos):
-        p = (0.005552309*331323.9645)/( (0.000000346*331323.9645) + math.exp(-0.005552309*generar)  )
+        p = int(round( (0.005552309*331323.9645)/( (0.000000346*331323.9645) + math.exp(-0.005552309*generar)) ))
         valores.append(p)
 
     return valores
@@ -59,23 +59,22 @@ tipos de bacterias, protozoarios, pulgas de agua y moscas de frutas en ambientes
 Siendo la ecuación:
 """
 
-image_filename = 'ecuacion_logistica.png' # replace with your own image
-ECUACION_LOGISTICA = base64.b64encode(open(image_filename, 'rb').read())
-
-
-
+ECUACION_LOGISTICA = "\[ { dP \over dt} = P(a - bP) \]"
+ECUACION_LOGISTICA_RESOLUCION = "\[ P(t) = { aC_2 \over bC_2 + e^{-at}} \]"
 # Link Repositorio
 LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Crecimiento-Poblacional'
 
 
 
-# Iniciando la aplicacion
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 # Creando aplicacion de Dash
 app = dash.Dash(__name__,
-    external_stylesheets=[dbc.themes.UNITED]
+    external_stylesheets=[dbc.themes.UNITED],
+    external_scripts=['https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML',],
 )
+
+
+
 server = app.server
 #Colocando titulo a la pestania
 app.title = 'Población Mundial'
@@ -83,6 +82,7 @@ app.title = 'Población Mundial'
 
 #Layout de la pagina
 app.layout = html.Div(children=[
+
     dbc.Row(
             dbc.Col(
                 (
@@ -91,10 +91,13 @@ app.layout = html.Div(children=[
                     html.Br(),
                     html.A('Código en Github', href=LINK_GITHUB),
                     html.Br(),
+
                 ),
                 width={"size": 6, "offset": 1},
             )
     ),
+
+
 
     dbc.Row(
         [
@@ -119,11 +122,15 @@ app.layout = html.Div(children=[
                             dbc.CardBody(
                                 dbc.CardBody([
                                     html.H2(children='Ecuación Logística'),
-                                    html.P(DES_ECUACION_LOGISTICA),
-
-                                    html.Div([
-                                        html.Img(src='data:image/png;base64,{}'.format(ECUACION_LOGISTICA.decode()))
-                                    ], style={'textAlign': 'center'}),
+                                    html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
+                                    html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
+                                    html.P(
+                                    """
+                                    Primero se determinó la ecuación diferencial de primer orden, mediante el 
+                                    método de separación de variables, siendo posible encontrar su solución de 
+                                    igual forma por el método Bernoulli’s y transformación a una ecuación exacta
+                                    """, style={'textAlign': 'justify'}),
+                                    html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
 
                                 ]),
                                 className='mt-3'
