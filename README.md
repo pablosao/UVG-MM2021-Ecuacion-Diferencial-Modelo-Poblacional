@@ -7,10 +7,12 @@ Para el curso de Ecuaciones Diferenciales de la Universidad del Valle de Guatema
   <img src="img/ecuacion_logistica.png"></img>
 </p>
 
-Los datos utilizados para encontrar las constantes fueron: 
- * t = 0,  P(0)  = 1650.
- * t = 10, P(10) = 1734. 
- * t = 20, P(20) = 1833
+Los valores iniciales para la resolución de la ecuación diferencial fueron: 
+|Tiempo (t) | Población en Millones [ P(t) ] |
+| --- | --- |
+| 0 | 1650 |
+| 10 | 1734 |
+| 20 | 1833 |
 
 Donde se determino la siguiente ecuacion:
 
