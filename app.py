@@ -202,7 +202,12 @@ app.layout = html.Div(children=[
                                         html.Div(id='formula_generada'),
                                     ),
                                 ],),
-                                dbc.Row(dbc.Col( html.Div(id='grafica_pronostico') )),
+                                dbc.Row(
+                                    dbc.Col(
+                                        html.Div(id='grafica_pronostico'),
+                                        width={"size": 10, "order": 1}
+                                    )
+                                ),
 
 
                             ]),
