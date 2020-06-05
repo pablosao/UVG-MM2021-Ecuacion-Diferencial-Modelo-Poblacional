@@ -2,62 +2,82 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
+import dash_bootstrap_components as dbc
+import pandas as pd
 
-########### Define your variables
-beers=['Chesapeake Stout', 'Snake Dog IPA', 'Imperial Porter', 'Double Dog IPA']
-ibu_values=[35, 60, 85, 75]
-abv_values=[5.4, 7.1, 9.2, 4.3]
-color1='lightblue'
-color2='darkgreen'
-mytitle='Beer Comparison'
-tabtitle='beer!'
-myheading='Flying Dog Beers'
-label1='IBU'
-label2='ABV'
-githublink='https://github.com/austinlasseter/flying-dog-beers'
-sourceurl='https://www.flyingdog.com/beers/'
+"""
+Aplicación de Dash para graficar los datos del crecimiento poblacional y la
+rersolución de la ecuación diferencial logistica
+:author: Pablo Sao
+:date: 04 de junio de 2020
+"""
 
-########### Set up the chart
-bitterness = go.Bar(
-    x=beers,
-    y=ibu_values,
-    name=label1,
-    marker={'color':color1}
-)
-alcohol = go.Bar(
-    x=beers,
-    y=abv_values,
-    name=label2,
-    marker={'color':color2}
-)
+def generaGrafica():
 
-beer_data = [bitterness, alcohol]
-beer_layout = go.Layout(
-    barmode='group',
-    title = mytitle
-)
+    # Obteniendo los datos
+    DATA = pd.read_excel(open('data.xlsx', 'rb'), sheet_name='Datos')
 
-beer_fig = go.Figure(data=beer_data, layout=beer_layout)
+    cLayout = go.Layout(title='Población Mundial',
+                        # Same x and first y
+                        xaxis_title='Fecha',
+                        yaxis_title='Personas (en millones)',
+                        height=700
+                        )
+
+    trace1 = go.Scatter(x=DATA['Año'], y=DATA['Inicial'], name='Población Valores Defecto')
+    trace2 = go.Scatter(x=DATA['Año'], y=DATA['Inicial sin NRR'], name='Población Valores Defecto (sin NRR)')
+
+    return dcc.Graph(id='graph', figure={
+                'data': [trace1,trace2],
+                'layout': cLayout
+            })
 
 
-########### Initiate the app
+
+
+# Link Repositorio
+LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Crecimiento-Poblacional'
+
+
+
+# Iniciando la aplicacion
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-server = app.server
-app.title=tabtitle
 
-########### Set up the layout
-app.layout = html.Div(children=[
-    html.H1(myheading),
-    dcc.Graph(
-        id='flyingdog',
-        figure=beer_fig
-    ),
-    html.A('Code on Github', href=githublink),
-    html.Br(),
-    html.A('Data Source', href=sourceurl),
-    ]
+# Creando aplicacion de Dash
+app = dash.Dash(__name__,
+    external_stylesheets=[dbc.themes.BOOTSTRAP]
 )
+server = app.server
+#Colocando titulo a la pestania
+app.title = 'Población Mundial'
+
+
+#Layout de la pagina
+app.layout = html.Div(children=[
+
+    dbc.Tabs([
+
+        # Grafica
+        dbc.Tab((
+
+            dbc.CardBody(
+                dbc.CardBody([
+                    html.Div(
+                        generaGrafica()
+                    ),
+
+                ]),
+                className='mt-3'
+            )
+
+        ),label="Gráficas Población Mundial",disabled=False)
+    ]),
+
+    html.A('Código en Github', href=LINK_GITHUB),
+    html.Br(),
+
+
+])
 
 if __name__ == '__main__':
     app.run_server()
