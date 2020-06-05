@@ -4,7 +4,7 @@ Para el curso de Ecuaciones Diferenciales de la Universidad del Valle de Guatema
 </p>
            
 <p align="center">
-  <img src="ecuacion_logistica.png"></img>
+  <img src="img/ecuacion_logistica.png"></img>
 </p>
 
 Los datos utilizados para encontrar las constantes fueron: 
