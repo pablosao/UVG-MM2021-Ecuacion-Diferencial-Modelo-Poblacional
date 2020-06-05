@@ -258,10 +258,14 @@ def muestraGrafica(select_value):
                         height=450
                         )
 
-    trace1 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto'], name='Población Valores Defecto')
-    trace2 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto sin NRR'], name='Población Valores Defecto (sin NRR)')
+    TRACE = [go.Scatter(x=DATOS['Año'], y=Ecuacion, name='Calculado con Ecuación Diferencial')]
 
-    trace4 = go.Scatter(x=DATOS['Año'], y=Ecuacion, name='Población Ecuación Diferencial')
+    for name in OPCIONES:
+        TRACE.append(go.Scatter(x=DATOS['Año'], y=DATOS[name], name=name))
+
+    #trace1 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto'], name='Población Valores Defecto')
+    #trace2 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto sin NRR'], name='Población Valores Defecto (sin NRR)')
+
 
     return Formula,\
                 (
@@ -276,7 +280,7 @@ def muestraGrafica(select_value):
                         dbc.Col(
                             html.Div(
                                 dcc.Graph(id='graph', figure={
-                                    'data': [trace1,trace2,trace4],
+                                    'data': TRACE,
                                     'layout':cLayout
                                 })
                             )
