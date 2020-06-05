@@ -118,7 +118,7 @@ app.layout = html.Div(children=[
                     html.P(children='Pablo Sao (Ing. Bioinformática)'),
                     html.P(children='Shirley Marroquín (Ing. Civil Arquitectonica)'),
                 ),
-                width={"size": 3, "order": 2},
+                width={"size": 6, "order": 2},
             ),
             dbc.Col(
                 (
