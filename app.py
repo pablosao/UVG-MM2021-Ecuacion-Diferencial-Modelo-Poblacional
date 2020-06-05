@@ -202,8 +202,8 @@ app.layout = html.Div(children=[
                                         html.Div(id='formula_generada'),
                                     ),
                                 ],),
+                                dbc.Row(dbc.Col( html.Div(id='grafica_pronostico') )),
 
-                                html.Div(id='grafica_pronostico'),
 
                             ]),
                             className='mt-3'
