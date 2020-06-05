@@ -221,7 +221,7 @@ def muestraGrafica(select_value):
                         # Same x and first y
                         xaxis_title='Año',
                         yaxis_title='Personas (en millones)',
-                        height=400
+                        height=450
                         )
 
     trace1 = go.Scatter(x=DATOS['Año'], y=DATOS['Datos por Defecto'], name='Población Valores Defecto')
