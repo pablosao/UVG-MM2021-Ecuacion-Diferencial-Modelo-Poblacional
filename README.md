@@ -40,7 +40,7 @@ La fuente de datos de la aplicación es un Archivo de Excel llamado <b>data.xlsx
 La aplicación puede ser vista en el siguiente [link](https://uvg-ed-modelo-poblacional.herokuapp.com/)
 
 ## Paquetes Requeridos
-Los paquetes necesarios para ejecutar la aplicacion son:
+Los paquetes necesarios para ejecutar la aplicación son:
 * dash
 * plotly
 * dash_bootstrap_components
@@ -48,14 +48,17 @@ Los paquetes necesarios para ejecutar la aplicacion son:
 * math
 * base64
 
-Se puede realizar la instalacion de los paquetes por medio del archivo *requirements.txt*
+Se puede realizar la instalación de los paquetes por medio del archivo *requirements.txt*
 
 ## Ejecutar Aplicacion
 
+Para ejecutarlo localmente se debe ejecutar el siguiente comando en la Terminal o en el CMD.
 
 ```console
 $ python app.py
 ```
+
+Ingresando posteriormente al localhost en el puerto indicado en la Terminal o en el CMD
 
 # Autores
 * Pablo Sao (Ing. Bioinformática)
