@@ -49,12 +49,15 @@ Siendo la ecuación:
 
 ECUACION_LOGISTICA = "\[ { dP \over dt} = P(a - bP) \]"
 ECUACION_LOGISTICA_RESOLUCION = "\[ P(t) = { aC_2 \over bC_2 + e^{-at}} \]"
+
 # Link Repositorio
 LINK_GITHUB = 'https://github.com/psao/UVG-MM2021-Crecimiento-Poblacional'
 
 # Logo universidad del Valle de Guatemala
 file_uvg_logo = 'uvg-logo.jpg' # replace with your own image
 UVG_LOGO = base64.b64encode(open(file_uvg_logo, 'rb').read())
+
+ECUACION_CUSTOMIZADA = ''
 
 # leyendo datos de Excel
 DATOS = pd.read_excel('data.xlsx', sheet_name='Datos')
@@ -152,15 +155,21 @@ app.layout = html.Div(children=[
                             dbc.CardBody(
                                 dbc.CardBody([
                                     html.H2(children='Ecuación Logística'),
+
                                     html.P(DES_ECUACION_LOGISTICA, style={'textAlign': 'justify'}),
+
                                     html.P(children=[ECUACION_LOGISTICA], style={'textAlign': 'center'}),
+
                                     html.P(
                                     """
                                     Primero se determinó la ecuación diferencial de primer orden, mediante el 
                                     método de separación de variables, siendo posible encontrar su solución de 
                                     igual forma por el método Bernoulli’s y transformación a una ecuación exacta
                                     """, style={'textAlign': 'justify'}),
+
                                     html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
+
+                                    html.Div(id='formula_generada_mostrar')
 
                                 ]),
                                 className='mt-3'
@@ -176,6 +185,7 @@ app.layout = html.Div(children=[
 
 @app.callback(
     [dash.dependencies.Output('formula_generada', 'children'),
+    dash.dependencies.Output('formula_generada_mostrar', 'children'),
     dash.dependencies.Output('grafica_pronostico', 'children')],
     [dash.dependencies.Input('select_column', 'value')])
 def muestraGrafica(select_value):
@@ -189,6 +199,11 @@ def muestraGrafica(select_value):
     con_c2 = getConstanteC2(valor_inicial,con_a,con_b)
 
     Formula = '\[ P(t) = { ' + str(con_a*con_c2) + ' \over ' + str(con_b*con_c2) + '+ e^{ -' + str(con_a) + 't }} \]'
+
+    datos_info = "Los datos utilizados para encontrar las constantes fueron: t = 0, P(0) = {0}." \
+                 " t = 10, P(10) = {1}. t = 20, P(20) = {2}. Determinando la ecuación".format(
+        valor_inicial,valor_1,valor_2
+    )
 
     Ecuacion = getcalculo_ecuacion(len(DATOS.index), con_a, con_b, con_c2)
 
@@ -204,7 +219,15 @@ def muestraGrafica(select_value):
 
     trace4 = go.Scatter(x=DATOS['Año'], y=Ecuacion, name='Población Ecuación Diferencial')
 
-    return Formula,(
+    return Formula,\
+                (
+                    html.Div((
+                        html.P(datos_info, style={'textAlign': 'justify'}),
+                        html.Br(),
+                        html.P(children=[Formula], style={'textAlign': 'center'}),
+                    ))
+                ),\
+                (
                     dbc.Row([
                         dbc.Col(
                             html.Div(
@@ -214,7 +237,8 @@ def muestraGrafica(select_value):
                                 })
                             )
                         )
-                    ]))
+                    ])
+                )
 
 
 if __name__ == '__main__':
