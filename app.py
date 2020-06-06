@@ -86,6 +86,7 @@ DATOS.drop(empty_cols,
         inplace=True)
 
 
+
 # Obteniendo nombre de las columnas
 OPCIONES = list(DATOS.columns)
 OPCIONES.remove('Año')
@@ -161,6 +162,7 @@ app.layout = html.Div(children=[
 
                                     html.P(children=[ECUACION_LOGISTICA_RESOLUCION], style={'textAlign': 'center'}),
 
+
                                     html.Div(id='formula_generada_mostrar'),
 
                                     html.Br(),
@@ -209,16 +211,24 @@ app.layout = html.Div(children=[
                                         width={"size": 12, "order": 1}
                                     )
                                 ),
-
-
                             ]),
                             className='mt-3'
                         )
                     ),label="Gráficas Población Mundial",disabled=False),
 
 
-
-
+                    # # Datos
+                    # dbc.Tab((
+                    #     dbc.CardBody(
+                    #         dbc.CardBody([
+                    #
+                    #             dbc.Table.from_dataframe(DATOS, size="sm",style={"height":298}, responsive=True, striped=True,
+                    #                                      bordered=True, hover=True),
+                    #
+                    #         ]),
+                    #         className='mt-3'
+                    #     )
+                    # ), label="Datos", disabled=False),
 
 
                 ]),
@@ -244,17 +254,14 @@ def muestraGrafica(select_value):
     con_c2 = getConstanteC2(valor_inicial,con_a,con_b)
 
     Formula = '\[ P(t) = { ' + str(con_a*con_c2) + ' \over ' + str(con_b*con_c2) + '+ e^{ -' + str(con_a) + 't }} \]'
-    
-    datos_info = """
-    Los valores iniciales para la resolución de la ecuación diferencial fueron: 
-    
-    |Tiempo (t) | Población en Millones  P(t) |
-    | --- | --- |
-    | 0 | {0} |
-    | 10 | {1} |
-    | 20 | {2} |
-    """.format(valor_inicial,valor_1,valor_2)
-    
+
+    tabla_datos = pd.DataFrame(
+        {
+            "Tiempo (t)": [0, 10, 20],
+            "Población en Millones  P(t)": [valor_inicial, valor_1, valor_2],
+        }
+    )
+
     Ecuacion = getcalculo_ecuacion(len(DATOS.index), con_a, con_b, con_c2)
 
     cLayout = go.Layout(title='Población Mundial',
@@ -276,7 +283,8 @@ def muestraGrafica(select_value):
     return Formula,\
                 (
                     html.Div((
-                        dcc.Markdown(datos_info),
+                        html.P(children="Los valores iniciales para la resolución de la ecuación diferencial fueron:", style={'textAlign': 'justify'}),
+                        dbc.Table.from_dataframe(tabla_datos,size="sm",responsive=True, striped=True, bordered=True, hover=True),
                         html.Br(),
                         html.P(children=[Formula], style={'textAlign': 'center'}),
                     ))
