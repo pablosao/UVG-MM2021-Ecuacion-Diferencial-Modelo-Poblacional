@@ -117,7 +117,7 @@ app.layout = html.Div(children=[
                     html.Br(),
                     html.H1(children='Población Mundial'),
                     html.P(children='Pablo Sao (Ing. Bioinformática)'),
-                    html.P(children='Shirley Marroquín (Ing. Civil Arquitectonica)'),
+                    html.P(children='Shirley Marroquín (Ing. Civil Arquitectónica)'),
                 ),
                 width={"size": 6, "order": 2},
             ),
