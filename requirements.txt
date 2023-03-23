@@ -25,6 +25,6 @@ plotly==4.1.0
 pytz==2019.1
 six==1.12.0
 traitlets==4.3.2
-Werkzeug==0.15.4
+Werkzeug==2.2.3
 dash_bootstrap_components==0.10.1
 xlrd>=1.0.0
